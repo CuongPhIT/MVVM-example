@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="user"
+            type="cuongph.mvvm.example.model.People"/>
+
+        <variable
+            name="handleClick"
+            type="cuongph.mvvm.example.view.MainActivity.MyHandleClick"/>
+
+        <import type="cuongph.mvvm.example.util.DataBindingUtil"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.MainActivity">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:text="@{DataBindingUtil.capitalize(user.name)}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:text="@{user.phoneNumber}"/>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            icon="@{user.icon}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click"
+            android:onClick="@{handleClick::onPressButton}"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Long Click"
+            android:onLongClick="@{(v) -> handleClick.onButtonLongClicked(v, user.name)}"/>
+
+        <include
+            layout="@layout/item_layout"
+            bind:people="@{user}"/>
+    </LinearLayout>
+</layout>
